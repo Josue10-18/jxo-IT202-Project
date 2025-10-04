@@ -1,4 +1,4 @@
-CREATE TABLE ShirtsManagers (
+CREATE TABLE jxo.ShirtsManagers (
  ShirtsManagerID  INT(11)        NOT NULL   AUTO_INCREMENT,
  emailAddress        VARCHAR(255)   NOT NULL   UNIQUE,
  password            VARCHAR(64)    NOT NULL,
