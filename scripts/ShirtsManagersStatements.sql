@@ -1,3 +1,5 @@
+--Josue Ortiz | 2025-10-03 | IT202-001 | Phase01 Assignment
+--jxo@njit.edu 
 CREATE TABLE jxo.ShirtsManagers (
  ShirtsManagerID  INT(11)        NOT NULL   AUTO_INCREMENT,
  emailAddress        VARCHAR(255)   NOT NULL   UNIQUE,

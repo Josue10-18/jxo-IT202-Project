@@ -1,3 +1,5 @@
+--Josue Ortiz | 2025-10-03 | IT202-001 | Phase01 Assignment
+--jxo@njit.edu 
 -- phpMyAdmin SQL Dump
 -- version 4.2.7.1
 -- http://www.phpmyadmin.net
