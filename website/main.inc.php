@@ -1,4 +1,6 @@
 <?php
+// Josue Ortiz | 2025-10-03 | IT202-001 | Phase01 Assignment
+// jxo@njit.edu 
 session_start();
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     header("Location: index.php");
