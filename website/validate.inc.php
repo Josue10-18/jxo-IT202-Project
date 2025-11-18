@@ -2,30 +2,43 @@
 // Josue Ortiz | 2025-10-03 | IT202-001 | Phase01 Assignment
 // jxo@njit.edu 
 session_start();
-require_once 'database.php';
 
-$email = $_POST['emailAddress'];
-$password = $_POST['password'];
-
-$sql = "SELECT * FROM ShirtsManagers 
-        WHERE emailAddress = ? AND password = SHA2(?, 256)";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("ss", $email, $password);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows === 1) {
-    $row = $result->fetch_assoc();
-    $_SESSION['login'] = true;
-    $_SESSION['emailAddress'] = $row['emailAddress'];
-    $_SESSION['firstName'] = $row['firstName'];
-    $_SESSION['lastName'] = $row['lastName'];
-    $_SESSION['pronouns'] = $row['pronouns'];
-
-    header("Location: main.inc.php");
-    exit();
-} else {
-    header("Location: sorry.php");
+function redirect($file) {
+    header("Location: $file");
     exit();
 }
+
+$emailAddress_raw = filter_input(INPUT_POST, 'emailAddress', FILTER_SANITIZE_EMAIL);
+$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+
+$_SESSION['login'] = false;
+
+// Phase 4: Validate email address format
+if (empty($emailAddress_raw) || !filter_var($emailAddress_raw, FILTER_VALIDATE_EMAIL)) {
+    redirect('sorry.php?reason=email'); 
+}
+$emailAddress = $emailAddress_raw; // Use the filtered and validated value
+
+$users = [
+    'jxo@njit.edu' => ['pass' => 'pa$$w0rd', 'first' => 'Josue', 'last' => 'Ortiz', 'pronouns' => 'He/Him'],
+    'admin@njit.edu' => ['pass' => 'admin', 'first' => 'Mister', 'last' => 'Admin', 'pronouns' => 'They/Them']
+];
+
+if (!array_key_exists($emailAddress, $users)) {
+    redirect('sorry.php?reason=email');
+}
+
+$user = $users[$emailAddress];
+
+if ($password !== $user['pass']) {
+    redirect('sorry.php?reason=password'); 
+}
+
+$_SESSION['login'] = true;
+$_SESSION['email'] = $emailAddress;
+$_SESSION['firstName'] = $user['first'];
+$_SESSION['lastName'] = $user['last'];
+$_SESSION['pronouns'] = $user['pronouns'];
+
+redirect('index.php');
 ?>

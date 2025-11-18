@@ -1,0 +1,123 @@
+/* Phase 4 CSS: Dark Theme Palette */
+
+/* Color Palette: 
+   --primary-bg: #2C3E50 (Dark Blue/Background)
+   --secondary-bg: #34495E (Slightly Lighter Blue/Content Areas)
+   --accent-color: #E74C3C (Red/Link hover, borders)
+   --text-color: #ECF0F1 (Light Gray/Text)
+*/
+:root {
+    --primary-bg: #2C3E50;
+    --secondary-bg: #34495E;
+    --accent-color: #E74C3C;
+    --text-color: #ECF0F1;
+}
+
+/* Set non-default font/size and non-white background */
+body {
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    font-family: 'Verdana', sans-serif; /* Specified font name */
+    font-size: 15px; /* Specified font size */
+    margin: 0;
+    padding: 0;
+}
+
+/* Required: Appropriate banner logo styling */
+.header-div {
+    /* Use padding instead of fixed height for responsiveness, but
+       fixed height is required for header semantic element */
+    display: flex;
+    align-items: center;
+    background-color: var(--secondary-bg);
+    padding: 5px 20px;
+}
+
+.header-div img {
+    /* Image in header area */
+    width: 50px; /* Fixed width */
+    height: 50px; /* Fixed height */
+    margin-right: 15px;
+    border: 1px solid var(--accent-color);
+}
+
+.header-div h1,
+.header-div h2 {
+    color: var(--text-color); /* Non-black text */
+    margin: 0;
+}
+
+/* Required: Fixed width and height for all HTML semantic/section elements */
+header {
+    width: 100%;
+    height: 70px; 
+    border-bottom: 3px solid var(--accent-color);
+}
+
+section {
+    width: 100%;
+    /* Note: You must remove the inline style `style="height: 425px;"` from the <section> tag in index.php */
+    height: 600px; /* Fixed height */
+    display: flex;
+}
+
+nav {
+    width: 250px; /* Fixed width */
+    height: 100%; /* Fixed height relative to parent section */
+    background-color: var(--secondary-bg);
+    border-right: 2px solid var(--accent-color);
+    padding: 10px; /* Required: Padding */
+    box-sizing: border-box; /* Include padding/border in the 250px width */
+    overflow-y: auto;
+}
+
+main {
+    flex-grow: 1; /* Takes up remaining width */
+    height: 100%; /* Fixed height relative to parent section */
+    background-color: var(--primary-bg);
+    padding: 20px; /* Required: Padding */
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+footer {
+    width: 100%;
+    height: 90px; /* Fixed height */
+    background-color: var(--secondary-bg);
+    color: var(--text-color);
+    text-align: center;
+    padding-top: 5px;
+    border-top: 3px solid var(--accent-color);
+    font-size: 10px; /* Small font size for footer text */
+}
+
+/* General Link Styling */
+a {
+    color: var(--accent-color); /* Non-black link color */
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+    color: #F39C12; /* Different hover color */
+}
+
+/* Form/Table Styling */
+table {
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--accent-color);
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid var(--text-color);
+    padding: 8px; /* Required: Padding */
+}
+
+input[type="submit"], input[type="button"] {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    border: 2px solid var(--accent-color);
+    padding: 5px 10px;
+    cursor: pointer;
+}

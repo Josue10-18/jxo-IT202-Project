@@ -1,0 +1,36 @@
+// Name: [Josue Ortiz]
+// Date: [10/18/2024]
+// Course/Section: IT-202 Section 001
+// Assignment: Phase 2 CRUD Categories and Items
+// Email: jxo@njit.edu
+POST http://localhost:3000/addshirttype.inc.php
+Content-Type: application/x-www-form-urlencoded
+
+ShirtTypeID=500
+&ShirtTypeCode=TEST
+&ShirtTypeName=test
+&AisleNumber=4
+
+###
+GET http://localhost:3000/listshirttypes.inc.php
+
+###
+POST http://localhost:3000/changeshirttype.test.php
+Content-Type: application/x-www-form-urlencoded
+
+ShirtTypeID=400
+&ShirtTypeCode=UPDATED
+&ShirtTypeName=UpdatedCollection
+&AisleNumber=5
+
+###
+GET http://localhost:3000/listshirttypes.inc.php
+
+###
+POST http://localhost:3000/removeshirttype.test.php
+Content-Type: application/x-www-form-urlencoded
+
+ShirtTypeID=400
+
+###
+GET http://localhost:3000/listshirttypes.inc.php

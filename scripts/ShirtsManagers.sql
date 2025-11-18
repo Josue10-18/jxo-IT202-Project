@@ -3,11 +3,7 @@
 -- phpMyAdmin SQL Dump
 -- version 4.2.7.1
 -- http://www.phpmyadmin.net
---
--- Host: sql1.njit.edu
--- Generation Time: Oct 04, 2025 at 12:38 AM
--- Server version: 8.0.17
--- PHP Version: 7.4.8
+
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -44,9 +40,9 @@ CREATE TABLE IF NOT EXISTS `ShirtsManagers` (
 --
 
 INSERT INTO `ShirtsManagers` (`ShirtsManagerID`, `emailAddress`, `password`, `pronouns`, `firstName`, `lastName`, `DateTimeCreated`, `DateTimeUpdated`) VALUES
-(1, 'josue@tshirts.com', '8ac9b4f8f090ea43bc5b022b8b74ddf2537c354685ee7249f41cb519177a7c93', 'He/Him', 'Josue', 'Ortiz', '2025-10-04 00:37:31', '2025-10-04 00:37:31'),
-(2, 'josue@graphictees.com', '9ced8dc76e7fd9620aa6e14cb2b8cf6bf748f71059ee264dd7707933dd572f00', 'He/Him', 'Juan', 'D Placencio', '2025-10-04 00:37:31', '2025-10-04 00:37:31'),
-(3, 'josue@washedtees.com', '8dcb914473a9912873077bab9f395c318d1a0ffd3e9863d0f088f6f717980f10', 'He/Him', 'Ceasar', 'Flores', '2025-10-04 00:37:31', '2025-10-04 00:37:31');
+(1, 'josue@tshirts.com', 'Josue123', 'He/Him', 'Josue', 'Ortiz', '2025-10-04 00:37:31', '2025-10-04 00:37:31'),
+(2, 'josue@graphictees.com', 'Juan123', 'He/Him', 'Juan', 'D Placencio', '2025-10-04 00:37:31', '2025-10-04 00:37:31'),
+(3, 'josue@washedtees.com', 'Ceasar123', 'He/Him', 'Ceasar', 'Flores', '2025-10-04 00:37:31', '2025-10-04 00:37:31');
 
 --
 -- Indexes for dumped tables
@@ -70,3 +66,5 @@ MODIFY `ShirtsManagerID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
