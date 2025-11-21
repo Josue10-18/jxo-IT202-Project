@@ -1,6 +1,6 @@
 <?php
 // Name: Josue Ortiz
-// Date: 10/25/2025
+// Date: 11/04/2025
 // Course/Section: IT-202 Section 001
 // Assignment: Phase 3 Assignment: HTML Website Layout
 // Email: jxo@njit.edu
@@ -21,7 +21,7 @@ if (isset($_SESSION['login']) && $_SESSION['login'] === true) {
 <html>
 <head>
    <title>SHIRT SHOP Inventory Helper</title>
-   <link rel="stylesheet" type="text/css" href="styles.css">
+   <link rel="stylesheet" type="text/css" href="style.css"> 
    <link rel="icon" type="image/png" href="images/logo.png">
 </head>
 <body>
@@ -58,6 +58,8 @@ if (isset($_SESSION['login']) && $_SESSION['login'] === true) {
            ?>
        </main>
    </section>
-   <?php include("footer.inc.php"); ?>
+   <footer>
+       <?php include("footer.inc.php"); ?>
+   </footer>
 </body>
 </html>

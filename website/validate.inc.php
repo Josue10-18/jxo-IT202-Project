@@ -20,6 +20,7 @@ if (empty($emailAddress_raw) || !filter_var($emailAddress_raw, FILTER_VALIDATE_E
 $emailAddress = $emailAddress_raw; // Use the filtered and validated value
 
 $users = [
+    // This is where you would normally connect to the database to check credentials
     'jxo@njit.edu' => ['pass' => 'pa$$w0rd', 'first' => 'Josue', 'last' => 'Ortiz', 'pronouns' => 'He/Him'],
     'admin@njit.edu' => ['pass' => 'admin', 'first' => 'Mister', 'last' => 'Admin', 'pronouns' => 'They/Them']
 ];
@@ -34,11 +35,12 @@ if ($password !== $user['pass']) {
     redirect('sorry.php?reason=password'); 
 }
 
+// Successful Login
 $_SESSION['login'] = true;
 $_SESSION['email'] = $emailAddress;
 $_SESSION['firstName'] = $user['first'];
 $_SESSION['lastName'] = $user['last'];
 $_SESSION['pronouns'] = $user['pronouns'];
 
-redirect('index.php');
+redirect('index.php'); // Redirect to the main page
 ?>
