@@ -1,8 +1,8 @@
 <?php
 // Name: Josue Ortiz
-// Date: 10/31/2025
+// Date: 11/04/2025
 // Course/Section: IT-202 Section 001
-// Assignment: Phase 3 Assignment: HTML Website Layout
+// Assignment: Phase 4 Assignment: Input Filtering and CSS Styling (Completed Server-Side Validation)
 // Email: jxo@njit.edu
 
 require('database.php'); 
@@ -14,66 +14,111 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     exit();
 }
 
-// 2. Input Filtering
-$id = filter_input(INPUT_POST, 'ShirtID', FILTER_VALIDATE_INT);
-$code = filter_input(INPUT_POST, 'ShirtCode', FILTER_SANITIZE_STRING);
-$name = filter_input(INPUT_POST, 'ShirtName', FILTER_SANITIZE_STRING);
-$desc = filter_input(INPUT_POST, 'ShirtDescription', FILTER_SANITIZE_STRING);
+// 2. Input Filtering (Sanitization/Validation)
+// Using FILTER_SANITIZE_STRING (or FILTER_SANITIZE_FULL_SPECIAL_CHARS for PHP 8+) for non-numeric text
+$id       = filter_input(INPUT_POST, 'ShirtID', FILTER_VALIDATE_INT);
+$code     = filter_input(INPUT_POST, 'ShirtCode', FILTER_SANITIZE_STRING);
+$name     = filter_input(INPUT_POST, 'ShirtName', FILTER_SANITIZE_STRING);
+// Sanitize description and use htmlspecialchars() on output
+$desc     = filter_input(INPUT_POST, 'ShirtDescription', FILTER_SANITIZE_STRING); 
 $material = filter_input(INPUT_POST, 'Material', FILTER_SANITIZE_STRING);
-$fit = filter_input(INPUT_POST, 'Fit', FILTER_SANITIZE_STRING);
-$typeId = filter_input(INPUT_POST, 'ShirtTypeID', FILTER_VALIDATE_INT);
-$wprice = filter_input(INPUT_POST, 'ShirtWholesalePrice', FILTER_VALIDATE_FLOAT);
-$lprice = filter_input(INPUT_POST, 'ShirtListPrice', FILTER_VALIDATE_FLOAT);
+$fit      = filter_input(INPUT_POST, 'Fit', FILTER_SANITIZE_STRING);
+$typeId   = filter_input(INPUT_POST, 'ShirtTypeID', FILTER_VALIDATE_INT);
+// FILTER_VALIDATE_FLOAT allows decimal points
+$wprice   = filter_input(INPUT_POST, 'ShirtWholesalePrice', FILTER_VALIDATE_FLOAT);
+$lprice   = filter_input(INPUT_POST, 'ShirtListPrice', FILTER_VALIDATE_FLOAT);
 
+// 3. Server-Side Validation Logic
 $errorMessage = "";
-// Phase 4: Explicit Data Type Validation Checks
-if (!is_int($id) || !is_int($typeId)) {
-    $errorMessage .= "<p>Error: ShirtID and ShirtTypeID must be valid integers.</p>";
+
+// --- Numeric ID/TypeID Validation (Required: is_int() / min/max range) ---
+if ($id === false || $id === null) {
+    $errorMessage .= "<p>Error: ShirtID is missing or not a number.</p>";
+} elseif ($id <= 0 || $id > 999999) {
+    $errorMessage .= "<p>Error: ShirtID must be a positive number.</p>";
 }
-if (!is_float($wprice) || !is_float($lprice)) {
-    $errorMessage .= "<p>Error: Wholesale and List Prices must be valid floating point numbers.</p>";
+// Note: is_int() check is implicit if filter_input(..., FILTER_VALIDATE_INT) passes
+
+if ($typeId === false || $typeId === null) {
+    $errorMessage .= "<p>Error: ShirtTypeID is missing or not a number.</p>";
+} elseif ($typeId <= 0 || $typeId > 99999) {
+    $errorMessage .= "<p>Error: ShirtTypeID must be a positive number.</p>";
 }
 
-if ($id === false || $id === null || $typeId === false || $typeId === null) {
-    $errorMessage .= "<p>Error: ShirtID or ShirtTypeID is missing or invalid.</p>";
-}
-if ($wprice === false || $lprice === false || $wprice === null || $lprice === null) {
+// --- Price Validation (Required: is_float() / min/max range / Wholesale < List) ---
+if ($wprice === false || $wprice === null || $lprice === false || $lprice === null) {
     $errorMessage .= "<p>Error: Price fields are missing or invalid (non-numeric).</p>";
+} elseif ($wprice <= 0 || $lprice <= 0) {
+    $errorMessage .= "<p>Error: Prices must be greater than zero.</p>";
 } elseif ($wprice >= $lprice) {
-    $errorMessage .= "<p>Error: Wholesale Price must be less than List Price.</p>";
+    $errorMessage .= "<p>Error: Wholesale Price ($" . number_format($wprice, 2) . ") must be strictly less than List Price ($" . number_format($lprice, 2) . ").</p>";
 }
-if (empty($code) || empty($name) || empty($desc) || empty($material) || empty($fit)) {
-    $errorMessage .= "<p>Error: Missing one or more required text fields.</p>";
+// Note: is_float() check is implicit if filter_input(..., FILTER_VALIDATE_FLOAT) passes
+
+// --- String Length and Content Validation (Required: min/max length / htmlspecialchars) ---
+
+// ShirtCode: Min 3, Max 10
+$codeLength = strlen($code);
+if ($codeLength < 3 || $codeLength > 10) {
+    $errorMessage .= "<p>Error: Shirt Code must be between 3 and 10 characters.</p>";
 }
-// Simple check for description sentence length (as required by prompt)
-if (substr_count($desc, '.') < 2 && substr_count($desc, '!') < 2 && substr_count($desc, '?') < 2) {
-    $errorMessage .= "<p>Error: Shirt Description must contain at least 2 full sentences.</p>";
+
+// ShirtName: Min 10, Max 100
+$nameLength = strlen($name);
+if ($nameLength < 10 || $nameLength > 100) {
+    $errorMessage .= "<p>Error: Shirt Name must be between 10 and 100 characters.</p>";
+}
+
+// ShirtDescription: Min 100, Max 255
+$descLength = strlen($desc);
+if ($descLength < 100 || $descLength > 255) {
+    $errorMessage .= "<p>Error: Shirt Description must be between 100 and 255 characters.</p>";
+}
+// Required: Check for at least 2 full sentences
+$sentence_count = substr_count($desc, '.') + substr_count($desc, '!') + substr_count($desc, '?');
+if ($sentence_count < 2) {
+    $errorMessage .= "<p>Error: Shirt Description must contain at least 2 full sentences (ending with '.', '!', or '?').</p>";
+}
+
+// Material: Additional column (assuming min 5, max 50 for a reasonable string field)
+$materialLength = strlen($material);
+if ($materialLength < 5 || $materialLength > 50) {
+    $errorMessage .= "<p>Error: Material must be between 5 and 50 characters.</p>";
+}
+
+// Fit: Additional column (assuming min 1, max 10 for S, M, L, etc.)
+$fitLength = strlen($fit);
+if ($fitLength < 1 || $fitLength > 10) {
+    $errorMessage .= "<p>Error: Fit must be between 1 and 10 characters (e.g., 'S', 'Regular', 'Slim').</p>";
 }
 
 
+// If any errors were found, stop execution and display errors
 if ($errorMessage != "") {
     echo "<h2>Error Adding New Shirt</h2>";
     echo $errorMessage;
     exit();
 }
 
-// 3. Perform Save Operation
+// 4. Perform Save Operation (Data is now validated and sanitized)
 $newShirt = new Shirt($id, $code, $name, $desc, $material, $fit, $typeId, $wprice, $lprice);
 if ($newShirt->save()) {
-    $safeName = htmlspecialchars($name);
-    $safeCode = htmlspecialchars($code);
-    $successMessage = "<h2>Success! New Shirt #$id: $safeName ($safeCode) successfully added.</h2>";
+    $successMessage = "<h2>Success! New Shirt #".htmlspecialchars($id).": ".htmlspecialchars($name)." successfully added.</h2>";
+    // Ensure all output values are escaped using htmlspecialchars()
     $wPriceFmt = number_format($wprice, 2);
     $lPriceFmt = number_format($lprice, 2);
-    $details = "<p>Wholesale Price: $$wPriceFmt, List Price: $$lPriceFmt.</p>";
-    $details .= "<p>Material: " . htmlspecialchars($material) . ", Fit: " . htmlspecialchars($fit) . "</p>";
-
-    echo $successMessage;
-    echo $details;
-    echo "<p><a href=\"index.php?content=listshirts\">Go to the Shirt List</a></p>";
-
+    $details = "<p>Code: ".htmlspecialchars($code)." | Wholesale: $".htmlspecialchars($wPriceFmt)." | List: $".htmlspecialchars($lPriceFmt)."</p>";
 } else {
-    echo "<h2>Error: Failed to add New Shirt #$id. It may already exist (check ID and Code).</h2>";
-    echo "<p><a href=\"index.php?content=listshirts\">Go to the Shirt List</a></p>";
+    $successMessage = "<h2>Error: Failed to add Shirt #".htmlspecialchars($id).". It may already exist (check ID and Code).</h2>";
+    $details = "";
 }
+?>
+<h3>
+<?php echo $successMessage; ?>
+<?php echo $details; ?>
+</h3>
+
+<?php
+// UCID: jxo
+// Date: 11/04/2025
 ?>
