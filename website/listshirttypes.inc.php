@@ -6,6 +6,7 @@
 // Email: jxo@njit.edu
 
 // --- PHP INCLUDES/SETUP ---
+// IMPORTANT: These files must exist in the same directory!
 require('database.php'); 
 require('shirttype.php');
 
@@ -59,5 +60,5 @@ $shirtTypes = ShirtType::getAll();
 </table>
 
 <?php if (empty($shirtTypes)): ?>
-    <p style="color: red; font-weight: bold;">No shirt categories found in the database. You must insert data via phpMyAdmin to see this list.</p>
+    <p style="color: red; font-weight: bold;">No shirt categories found in the database. This page is working, but the table is empty. Insert data via phpMyAdmin.</p>
 <?php endif; ?>
