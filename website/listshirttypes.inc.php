@@ -58,7 +58,9 @@ $shirtTypes = ShirtType::getAll(); // Retrieve data
     </tbody>
 </table>
 
-<?php if (empty($shirtTypes)): ?>
+<?php 
+// --- DEBUGGING CHECK: This will force an error message if the connection is down ---
+if (empty($shirtTypes)): ?>
     <p>No shirt categories found in the database.</p>
     
     <div style="border: 2px solid #E74C3C; padding: 10px; margin-top: 20px; color: black; background-color: #FEE;">
@@ -66,10 +68,11 @@ $shirtTypes = ShirtType::getAll(); // Retrieve data
         <?php 
             global $db;
             if (!isset($db) || $db === null) {
-                echo "<p style='color: red;'>CRITICAL ERROR: Database connection (\$db) is not defined. Check your <strong>database.php</strong> file.</p>";
+                echo "<p style='color: red;'>CRITICAL ERROR: Database connection (\$db) is not defined. This is an AFS/PHP server issue.</p>";
             } else {
-                echo "<p>Connection seems okay, but the query returned 0 items. **Action Required:** Log into **phpMyAdmin** and verify your <strong>ShirtTypes</strong> table has data.</p>";
+                echo "<p>Connection seems okay, but the query returned 0 items. **Action Required:** The SQL query failed silently. Check the <strong>database table name (ShirtTypes)</strong> for typos in phpMyAdmin.</p>";
             }
         ?>
     </div>
-    <?php endif; ?>
+    
+<?php endif; ?>
