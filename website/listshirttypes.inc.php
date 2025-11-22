@@ -1,22 +1,26 @@
 <?php
-// Name: [Your Name]
-// Date: [Current Date]
-// Course/Section: IT-202 Section ###
+// Name: Josue Ortiz
+// Date: 11/04/2025
+// Course/Section: IT-202 Section 001
 // Assignment: Phase 2 CRUD Categories and Items
-// Email: [Your UCID]@njit.edu
+// Email: jxo@njit.edu
 
 // --- PHP INCLUDES/SETUP ---
 require('database.php'); 
 require('shirttype.php');
+session_start(); // Ensure session_start is run if not done in index.php (though it is in index.php, having it here is harmless)
 
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     echo "<h2>Access Denied! Please log in to view this page.</h2>";
     exit();
 }
-$shirtTypes = ShirtType::getAll();
 
+$shirtTypes = ShirtType::getAll(); // Retrieve data
+
+// --- HTML OUTPUT ---
 ?>
-<h2>List Shirt Types</h2>
+<h2>List Shirt Types (All Categories)</h2>
+
 <form action="#" method="get">
     <label for="selectShirtType">Select a Shirt Type:</label>
     <select name="ShirtTypeID" id="selectShirtType" required>
@@ -28,45 +32,44 @@ $shirtTypes = ShirtType::getAll();
             </option>
         <?php endforeach; ?>
     </select>
-    </form>
+</form>
+
+<hr>
+
+<h1>All Shirt Categories</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Aisle Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($shirtTypes as $type): ?>
+        <tr>
+            <td><?php echo htmlspecialchars($type['ShirtTypeID']); ?></td>
+            <td><?php echo htmlspecialchars($type['ShirtTypeCode']); ?></td>
+            <td><?php echo htmlspecialchars($type['ShirtTypeName']); ?></td>
+            <td><?php echo htmlspecialchars($type['AisleNumber']); ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 
 <?php if (empty($shirtTypes)): ?>
-    <p>No shirt types found in the database.</p>
-<?php endif;
-// --- HTML OUTPUT ---
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>List Shirt Types Test</title>
-    <style>
-        table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; }
-    </style>
-</head>
-<body>
-    <h1>All Shirt Categories</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Aisle Number</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($shirtTypes as $type): ?>
-            <tr>
-                <td><?php echo htmlspecialchars($type['ShirtTypeID']); ?></td>
-                <td><?php echo htmlspecialchars($type['ShirtTypeCode']); ?></td>
-                <td><?php echo htmlspecialchars($type['ShirtTypeName']); ?></td>
-                <td><?php echo htmlspecialchars($type['AisleNumber']); ?></td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <?php if (empty($shirtTypes)): ?>
-        <p>No shirt categories found in the database.</p>
+    <p>No shirt categories found in the database.</p>
+    
+    <div style="border: 2px solid #E74C3C; padding: 10px; margin-top: 20px; color: black; background-color: #FEE;">
+        <h3>DEBUG INFO:</h3>
+        <?php 
+            global $db;
+            if (!isset($db) || $db === null) {
+                echo "<p style='color: red;'>CRITICAL ERROR: Database connection (\$db) is not defined. Check your <strong>database.php</strong> file.</p>";
+            } else {
+                echo "<p>Connection seems okay, but the query returned 0 items. **Action Required:** Log into **phpMyAdmin** and verify your <strong>ShirtTypes</strong> table has data.</p>";
+            }
+        ?>
+    </div>
     <?php endif; ?>
-</body>
-</html>
