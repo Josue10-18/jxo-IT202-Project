@@ -7,7 +7,7 @@
 session_start();
 require_once("database.php");
 require_once("shirttype.php");
-require_once("shirt.php");
+include_once("shirt.php"); // CRITICAL FIX: Changed from require_once to include_once to prevent Fatal Crash
 
 $content = 'login'; // Default content: login form
 
@@ -43,7 +43,7 @@ if (isset($_SESSION['login']) && $_SESSION['login'] === true) {
            <?php
            // Include the content requested
            if ($content == 'login') {
-               include("login.inc.php"); // Assuming you have this file for the login form
+               include("login.inc.php"); 
            } else {
                // Security check: Only allow *.inc.php files from the content parameter
                $file = $content . '.inc.php';

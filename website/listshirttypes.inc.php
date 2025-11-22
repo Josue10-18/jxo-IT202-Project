@@ -60,6 +60,6 @@ $shirtTypes = ShirtType::getAll(); // Retrieve data
 <?php if (empty($shirtTypes)): ?>
     <p style="color: red; font-weight: bold;">
         No shirt categories found in the database. 
-        This page is working; you must insert data via phpMyAdmin.
+        This page is now working; you must insert data via phpMyAdmin.
     </p>
 <?php endif; ?>
