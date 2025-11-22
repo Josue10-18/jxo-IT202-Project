@@ -8,14 +8,14 @@
 // --- PHP INCLUDES/SETUP ---
 require('database.php'); 
 require('shirttype.php');
-// session_start() is removed as it's correctly in index.php
 
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     echo "<h2>Access Denied! Please log in to view this page.</h2>";
     exit();
 }
 
-$shirtTypes = ShirtType::getAll(); // Retrieve data
+// Retrieve data. If the table is empty, $shirtTypes will be an empty array.
+$shirtTypes = ShirtType::getAll(); 
 
 // --- HTML OUTPUT ---
 ?>
@@ -58,21 +58,6 @@ $shirtTypes = ShirtType::getAll(); // Retrieve data
     </tbody>
 </table>
 
-<?php 
-// --- DEBUGGING CHECK: This will force an error message if the connection is down ---
-if (empty($shirtTypes)): ?>
-    <p>No shirt categories found in the database.</p>
-    
-    <div style="border: 2px solid #E74C3C; padding: 10px; margin-top: 20px; color: black; background-color: #FEE;">
-        <h3>DEBUG INFO:</h3>
-        <?php 
-            global $db;
-            if (!isset($db) || $db === null) {
-                echo "<p style='color: red;'>CRITICAL ERROR: Database connection (\$db) is not defined. This is an AFS/PHP server issue.</p>";
-            } else {
-                echo "<p>Connection seems okay, but the query returned 0 items. **Action Required:** The SQL query failed silently. Check the <strong>database table name (ShirtTypes)</strong> for typos in phpMyAdmin.</p>";
-            }
-        ?>
-    </div>
-    
+<?php if (empty($shirtTypes)): ?>
+    <p style="color: red; font-weight: bold;">No shirt categories found in the database. You must insert data via phpMyAdmin to see this list.</p>
 <?php endif; ?>
