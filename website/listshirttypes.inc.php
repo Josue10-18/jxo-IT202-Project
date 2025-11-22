@@ -8,7 +8,7 @@
 // --- PHP INCLUDES/SETUP ---
 require('database.php'); 
 require('shirttype.php');
-session_start(); // Ensure session_start is run if not done in index.php (though it is in index.php, having it here is harmless)
+// session_start() is removed as it's correctly in index.php
 
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     echo "<h2>Access Denied! Please log in to view this page.</h2>";
@@ -36,7 +36,7 @@ $shirtTypes = ShirtType::getAll(); // Retrieve data
 
 <hr>
 
-<h1>All Shirt Categories</h1>
+<h3>All Shirt Categories</h3>
 <table>
     <thead>
         <tr>
