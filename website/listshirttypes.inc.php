@@ -6,7 +6,6 @@
 // Email: jxo@njit.edu
 
 // --- PHP INCLUDES/SETUP ---
-// IMPORTANT: These files must exist in the same directory!
 require('database.php'); 
 require('shirttype.php');
 
@@ -15,8 +14,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     exit();
 }
 
-// Retrieve data. If the table is empty, $shirtTypes will be an empty array.
-$shirtTypes = ShirtType::getAll(); 
+$shirtTypes = ShirtType::getAll(); // Retrieve data
 
 // --- HTML OUTPUT ---
 ?>
@@ -60,5 +58,8 @@ $shirtTypes = ShirtType::getAll();
 </table>
 
 <?php if (empty($shirtTypes)): ?>
-    <p style="color: red; font-weight: bold;">No shirt categories found in the database. This page is working, but the table is empty. Insert data via phpMyAdmin.</p>
+    <p style="color: red; font-weight: bold;">
+        No shirt categories found in the database. 
+        This page is working; you must insert data via phpMyAdmin.
+    </p>
 <?php endif; ?>
