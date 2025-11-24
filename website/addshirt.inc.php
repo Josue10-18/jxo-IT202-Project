@@ -6,7 +6,7 @@
 // Email: jxo@njit.edu
 
 require('database.php'); 
-require('shirt.php');
+require_once('shirt.php');
 
 // 1. Login Check
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {

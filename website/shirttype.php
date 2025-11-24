@@ -22,6 +22,7 @@ class ShirtType {
 
 
     public function save() {
+        /** @var PDO $db */
         global $db; 
 
         $query = 'INSERT INTO ShirtTypes 
@@ -37,8 +38,8 @@ class ShirtType {
 
         return $statement->execute(); 
     }
-
     public static function getAll() {
+        /** @var PDO $db */
         global $db;
 
         $query = 'SELECT * FROM ShirtTypes ORDER BY ShirtTypeID';
@@ -48,8 +49,8 @@ class ShirtType {
         $statement->closeCursor();
         return $results;
     }
-
     public function update() {
+        /** @var PDO $db */
         global $db;
 
         $query = 'UPDATE ShirtTypes
@@ -66,8 +67,8 @@ class ShirtType {
 
         return $statement->execute();
     }
-
     public static function remove($id) {
+        /** @var PDO $db */
         global $db;
 
         $query = 'DELETE FROM ShirtTypes WHERE ShirtTypeID = :id';

@@ -1,14 +1,13 @@
 <?php
-// Name: [Josue Ortiz]
+// Name: Josue Ortiz
 // Date: 11/04/2025
 // Course/Section: IT-202 Section 001
 // Assignment: Phase 2 CRUD Categories and Items
 // Email: jxo@njit.edu
 
 require('database.php'); 
-require('shirttype.php');
+require_once('shirttype.php'); 
 
-//login 
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     echo "<h2>Access Denied! You must be logged in to add a new Shirt Type.</h2>";
     exit();
@@ -35,10 +34,8 @@ if ($newShirtType->save()) {
     $safeCode = htmlspecialchars($code);
     $safeName = htmlspecialchars($name);
     $successMessage = "<h2>New Category #$id successfully added!</h2>";
-    // Used <p> instead of <h2> for details to reduce large font size
     $details = "<p><strong>Category Number:</strong> $id</p><p><strong>Code:</strong> $safeCode, <strong>Name:</strong> $safeName, <strong>Aisle:</strong> $aisle</p>";
 } else {
-    // This is the error message you were likely receiving
     $successMessage = "<h2>Error: Failed to add Category #$id. It may already exist.</h2>";
     $details = "";
 }
@@ -48,12 +45,8 @@ $isSuccess = strpos($successMessage, 'Error') === false;
 $boxColor = $isSuccess ? '#2ECC71' : '#E74C3C'; // Green for success, Red for error
 ?>
 
-<div style="text-align: center; border: 1px solid <?php echo $boxColor; ?>; padding: 10px; margin: 20px 0;">
+<div style="text-align: center; border: 1px solid <?php echo $boxColor; ?>; padding: 20px; background-color: <?php echo $isSuccess ? '#E8F6F3' : '#FEE'; ?>; margin: 20px auto; max-width: 600px;">
     <?php echo $successMessage; ?>
     <?php echo $details; ?>
+    <p><a href="index.php?content=listshirttypes">SUCCESS!! added shirt type</a></p>
 </div>
-
-<p style="text-align: center;">
-    <a href="index.php?content=newshirttype">Add another Shirt Type</a> |
-    <a href="index.php?content=listshirttypes">View All Shirt Types</a>
-</p>

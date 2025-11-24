@@ -5,7 +5,9 @@
 // Assignment: Phase 3 Assignment: HTML Website Layout
 // Email: jxo@njit.edu
 
-// Requires: database.php, shirt.php
+require('database.php'); 
+require_once('shirt.php');
+
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     echo "<h2>Access Denied! Please log in to view this page.</h2>";
     exit();

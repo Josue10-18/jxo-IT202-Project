@@ -5,9 +5,8 @@
 // Assignment: Phase 2 CRUD Categories and Items
 // Email: jxo@njit.edu
 
-// --- PHP INCLUDES/SETUP ---
 require('database.php'); 
-require('shirttype.php');
+require_once('shirttype.php'); 
 
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     echo "<h2>Access Denied! Please log in to view this page.</h2>";
