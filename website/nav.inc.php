@@ -5,7 +5,12 @@
 // Assignment: Phase 3 Assignment: HTML Website Layout
 // Email: jxo@njit.edu
 
-   if (isset($_SESSION['login'])) {
+// Ensure the session is started before using session variables
+if (session_status() === PHP_SESSION_NONE) {
+   session_start();
+}
+
+  if (isset($_SESSION['login'])) {
    ?>
     <div class="navigation" style="float: left; height: 100%; min-width: 175px; width: auto;">
       <table width="100%" cellpadding="3">

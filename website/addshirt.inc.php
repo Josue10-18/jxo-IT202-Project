@@ -8,21 +8,27 @@
 require('database.php'); 
 require_once('shirt.php');
 
+// Ensure session is started for login check
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // 1. Login Check
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     echo "<h2>Access Denied! You must be logged in to add a new Shirt.</h2>";
     exit();
 }
 
+$
 // 2. Input Filtering (Sanitization/Validation)
-// Using FILTER_SANITIZE_STRING (or FILTER_SANITIZE_FULL_SPECIAL_CHARS for PHP 8+) for non-numeric text
+// Use FILTER_SANITIZE_FULL_SPECIAL_CHARS instead of deprecated FILTER_SANITIZE_STRING
 $id       = filter_input(INPUT_POST, 'ShirtID', FILTER_VALIDATE_INT);
-$code     = filter_input(INPUT_POST, 'ShirtCode', FILTER_SANITIZE_STRING);
-$name     = filter_input(INPUT_POST, 'ShirtName', FILTER_SANITIZE_STRING);
+$code     = filter_input(INPUT_POST, 'ShirtCode', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$name     = filter_input(INPUT_POST, 'ShirtName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 // Sanitize description and use htmlspecialchars() on output
-$desc     = filter_input(INPUT_POST, 'ShirtDescription', FILTER_SANITIZE_STRING); 
-$material = filter_input(INPUT_POST, 'Material', FILTER_SANITIZE_STRING);
-$fit      = filter_input(INPUT_POST, 'Fit', FILTER_SANITIZE_STRING);
+$desc     = filter_input(INPUT_POST, 'ShirtDescription', FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+$material = filter_input(INPUT_POST, 'Material', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$fit      = filter_input(INPUT_POST, 'Fit', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $typeId   = filter_input(INPUT_POST, 'ShirtTypeID', FILTER_VALIDATE_INT);
 // FILTER_VALIDATE_FLOAT allows decimal points
 $wprice   = filter_input(INPUT_POST, 'ShirtWholesalePrice', FILTER_VALIDATE_FLOAT);

@@ -12,7 +12,7 @@ function redirect($file) {
 }
 
 $emailAddress_raw = filter_input(INPUT_POST, 'emailAddress', FILTER_SANITIZE_EMAIL);
-$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 $_SESSION['login'] = false;
 

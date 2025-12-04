@@ -9,6 +9,11 @@ require('database.php');
 require('shirt.php'); 
 require('shirttype.php'); 
 
+// Ensure session is started for login check
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // 1. Login Check
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     echo "<h2>Access Denied! You must be logged in to update a Shirt.</h2>";

@@ -5,11 +5,11 @@
 $host = 'sql1.njit.edu'; 
 $user = 'jxo'; 
 $pass = 'Xavier#2090!!';
-$db = 'jxo'; 
+$dbname = 'jxo'; 
 $port = 3306; // Added missing $port definition
 
 // Data Source Name (DSN) for PDO
-$dsn = "mysql:host=$host;dbname=$db;port=$port";
+$dsn = "mysql:host=$host;dbname=$dbname;port=$port";
 
 try {
     // Using PDO to match your shirt.php and shirttype.php classes

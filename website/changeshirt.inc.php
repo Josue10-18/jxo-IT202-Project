@@ -8,13 +8,18 @@
 require('database.php'); 
 require('shirt.php');
 
+// Ensure session is started for login check
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // 1. Login Check
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     echo "<h2>Access Denied! You must be logged in to update a Shirt.</h2>";
     exit();
 }
 
-$action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
+$action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 // 2. Handle Cancel Button
 if ($action === 'Cancel') {
@@ -25,12 +30,12 @@ if ($action === 'Cancel') {
 
 // 3. Input Filtering (Sanitization/Validation)
 $id       = filter_input(INPUT_POST, 'ShirtID', FILTER_VALIDATE_INT);
-$code     = filter_input(INPUT_POST, 'ShirtCode', FILTER_SANITIZE_STRING);
-$name     = filter_input(INPUT_POST, 'ShirtName', FILTER_SANITIZE_STRING);
+$code     = filter_input(INPUT_POST, 'ShirtCode', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$name     = filter_input(INPUT_POST, 'ShirtName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 // Sanitize description and use htmlspecialchars() on output
-$desc     = filter_input(INPUT_POST, 'ShirtDescription', FILTER_SANITIZE_STRING);
-$material = filter_input(INPUT_POST, 'Material', FILTER_SANITIZE_STRING);
-$fit      = filter_input(INPUT_POST, 'Fit', FILTER_SANITIZE_STRING);
+$desc     = filter_input(INPUT_POST, 'ShirtDescription', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$material = filter_input(INPUT_POST, 'Material', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$fit      = filter_input(INPUT_POST, 'Fit', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $typeId   = filter_input(INPUT_POST, 'ShirtTypeID', FILTER_VALIDATE_INT);
 $wprice   = filter_input(INPUT_POST, 'ShirtWholesalePrice', FILTER_VALIDATE_FLOAT);
 $lprice   = filter_input(INPUT_POST, 'ShirtListPrice', FILTER_VALIDATE_FLOAT);

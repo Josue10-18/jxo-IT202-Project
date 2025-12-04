@@ -5,9 +5,14 @@
 // Assignment: Phase 3 Assignment: HTML Website Layout
 // Email: jxo@njit.edu
 
-require('database.php'); 
-require('shirttype.php');
-require('shirt.php');
+require_once('database.php'); 
+require_once('shirttype.php');
+require_once('shirt.php');
+
+// Ensure session is started for login check
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // 1. Login Check
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
@@ -39,8 +44,8 @@ $shirts = Shirt::getByTypeID($typeId); // Uses the method added to shirt.php
 <h2>Shirt Type Details: <?php echo htmlspecialchars($typeDetails['ShirtTypeName']); ?> (#<?php echo htmlspecialchars($typeDetails['ShirtTypeID']); ?>)</h2>
 
 <p>
-    **Code:** <?php echo htmlspecialchars($typeDetails['ShirtTypeCode']); ?> | 
-    **Aisle:** <?php echo htmlspecialchars($typeDetails['AisleNumber']); ?>
+    <strong>Code:</strong> <?php echo htmlspecialchars($typeDetails['ShirtTypeCode']); ?> | 
+    <strong>Aisle:</strong> <?php echo htmlspecialchars($typeDetails['AisleNumber']); ?>
 </p>
 
 <h3>Associated Shirts:</h3>

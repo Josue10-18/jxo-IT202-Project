@@ -2,7 +2,7 @@
 // Josue Ortiz | 2025-10-03 | IT202-001 | Phase01 Assignment
 // jxo@njit.edu 
 
-$reason = filter_input(INPUT_GET, 'reason', FILTER_SANITIZE_STRING);
+$reason = filter_input(INPUT_GET, 'reason', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 $message = "Login failed due to an unknown error.";
 

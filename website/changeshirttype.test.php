@@ -9,8 +9,8 @@ require('database.php');
 require('shirttype.php');
 
 $id = filter_input(INPUT_POST, 'ShirtTypeID', FILTER_VALIDATE_INT);
-$code = filter_input(INPUT_POST, 'ShirtTypeCode', FILTER_SANITIZE_STRING);
-$name = filter_input(INPUT_POST, 'ShirtTypeName', FILTER_SANITIZE_STRING);
+$code = filter_input(INPUT_POST, 'ShirtTypeCode', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$name = filter_input(INPUT_POST, 'ShirtTypeName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $aisle = filter_input(INPUT_POST, 'AisleNumber', FILTER_VALIDATE_INT);
 
 if ($id === false || $code === null || $name === null || $aisle === false) {
