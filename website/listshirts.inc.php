@@ -19,15 +19,15 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
 }
 
 $shirts = Shirt::getAll();
-
 ?>
+
 <h2>List Shirts</h2>
+
 <form action="#" method="get">
     <label for="selectShirt">Select a Shirt:</label>
     <select name="ShirtID" id="selectShirt" required>
         <option value="">-- Select a Shirt --</option>
         <?php foreach ($shirts as $shirt): 
-            // Required: Format price with comma and 2 decimals
             $priceFormatted = number_format($shirt['ShirtListPrice'], 2);
         ?>
             <option value="<?php echo htmlspecialchars($shirt['ShirtID']); ?>">
@@ -36,8 +36,71 @@ $shirts = Shirt::getAll();
             </option>
         <?php endforeach; ?>
     </select>
-    </form>
+</form>
+
+<hr>
+
+<h3>All Shirts</h3>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Material</th>
+            <th>Fit</th>
+            <th>Type ID</th>
+            <th>Wholesale ($)</th>
+            <th>List Price ($)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($shirts as $shirt): ?>
+        <tr>
+            <td><?php echo htmlspecialchars($shirt['ShirtID']); ?></td>
+            <td><?php echo htmlspecialchars($shirt['ShirtCode']); ?></td>
+            <td><?php echo htmlspecialchars($shirt['ShirtName']); ?></td>
+            <td><?php echo htmlspecialchars($shirt['ShirtDescription']); ?></td>
+            <td><?php echo htmlspecialchars($shirt['Material']); ?></td>
+            <td><?php echo htmlspecialchars($shirt['Fit']); ?></td>
+            <td><?php echo htmlspecialchars($shirt['ShirtTypeID']); ?></td>
+            <td><?php echo number_format($shirt['ShirtWholesalePrice'], 2); ?></td>
+            <td><?php echo number_format($shirt['ShirtListPrice'], 2); ?></td>
+
+            <!-- PHASE 5: JavaScript Unit 11 Buttons -->
+            <td>
+                <button type="button" onclick="viewItem(<?php echo $shirt['ShirtID']; ?>)">View</button>
+                <button type="button" onclick="updateItem(<?php echo $shirt['ShirtID']; ?>)">Update</button>
+                <button type="button" onclick="deleteItem(<?php echo $shirt['ShirtID']; ?>)">Delete</button>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+<script>
+// View Item
+function viewItem(id) {
+    window.location.href = "displayshirt.php?ShirtID=" + id;
+}
+
+// Update Item
+function updateItem(id) {
+    window.location.href = "changeshirt.inc.php?ShirtID=" + id;
+}
+
+// Delete Item
+function deleteItem(id) {
+    var confirmDelete = confirm("Are you sure you want to delete this shirt?");
+    if (confirmDelete) {
+        window.location.href = "removeshirt.inc.php?ShirtID=" + id;
+    }
+}
+</script>
 
 <?php if (empty($shirts)): ?>
     <p>No shirts found in the database.</p>
 <?php endif; ?>
+

@@ -7,6 +7,7 @@
 ?>
 <div class="header-div">
   <img src="images/shirt logo.png" alt="Shirt Shop Logo"> 
+      <script src="realtime.js"></script>
   <div>
     <h1>SHIRT SHOP</h1>
     <h2>Inventory Management and Catalog</h2>

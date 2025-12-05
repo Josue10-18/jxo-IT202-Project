@@ -19,9 +19,8 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
 }
 
 $shirtTypes = ShirtType::getAll(); // Retrieve data
-
-// --- HTML OUTPUT ---
 ?>
+
 <h2>List Shirt Types (All Categories)</h2>
 
 <form action="#" method="get">
@@ -47,6 +46,7 @@ $shirtTypes = ShirtType::getAll(); // Retrieve data
             <th>Code</th>
             <th>Name</th>
             <th>Aisle Number</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -56,10 +56,37 @@ $shirtTypes = ShirtType::getAll(); // Retrieve data
             <td><?php echo htmlspecialchars($type['ShirtTypeCode']); ?></td>
             <td><?php echo htmlspecialchars($type['ShirtTypeName']); ?></td>
             <td><?php echo htmlspecialchars($type['AisleNumber']); ?></td>
+
+            <!-- PHASE 5: JavaScript Action Buttons -->
+            <td>
+                <button type="button" onclick="viewType(<?php echo $type['ShirtTypeID']; ?>)">View</button>
+                <button type="button" onclick="updateType(<?php echo $type['ShirtTypeID']; ?>)">Update</button>
+                <button type="button" onclick="deleteType(<?php echo $type['ShirtTypeID']; ?>)">Delete</button>
+            </td>
         </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
+
+<script>
+// View Type
+function viewType(id) {
+    window.location.href = "displayshirttype.inc.php?ShirtTypeID=" + id;
+}
+
+// Update Type
+function updateType(id) {
+    window.location.href = "changeshirttype.test.php?ShirtTypeID=" + id;
+}
+
+// Delete Type (with confirmation prompt)
+function deleteType(id) {
+    var confirmDelete = confirm("Are you sure you want to delete this Shirt Type?");
+    if (confirmDelete) {
+        window.location.href = "removeshirttype.test.php?ShirtTypeID=" + id;
+    }
+}
+</script>
 
 <?php if (empty($shirtTypes)): ?>
     <p style="color: red; font-weight: bold;">

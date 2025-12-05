@@ -130,5 +130,25 @@ class ShirtType {
             return false;
         }
     }
+
+/* PHASE 5 – UNIT 12 FUNCTION */
+public static function getTotalCategories() {
+    /** @var PDO $db */
+    global $db;
+
+    $query = "SELECT COUNT(ShirtTypeID) AS total FROM ShirtTypes";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    $statement->closeCursor();
+
+    if ($row && isset($row['total'])) {
+        return (int)$row['total'];
+    } else {
+        return 0;
+    }
 }
+
+} 
 ?>
+

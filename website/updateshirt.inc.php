@@ -21,7 +21,11 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
 }
 
 // Get the ShirtID from the search form in nav.inc.php
+// Accept ShirtID from POST (normal form) or GET (JavaScript button)
 $shirtId = filter_input(INPUT_POST, 'ShirtID', FILTER_VALIDATE_INT);
+if ($shirtId === null) {
+    $shirtId = filter_input(INPUT_GET, 'ShirtID', FILTER_VALIDATE_INT);
+}
 
 // Validation for search input
 if ($shirtId === false || $shirtId === null) {

@@ -57,6 +57,14 @@ if (isset($_SESSION['login']) && $_SESSION['login'] === true) {
            }
            ?>
        </main>
+ 
+       <!-- PHASE 5 REAL-TIME INVENTORY PANEL -->
+       <?php include("aside.inc.php"); ?>
+       <script>
+           getRealTime();                // load immediately
+           setInterval(getRealTime, 5000); // refresh every 5 seconds
+       </script>
+
    </section>
    <footer>
        <?php include("footer.inc.php"); ?>

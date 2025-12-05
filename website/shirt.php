@@ -127,5 +127,57 @@ public static function getByID($id) {
     $statement->closeCursor();
     return $result;
 }
+/* ==========================
+   PHASE 5 – UNIT 12 METHODS
+   ========================== */
+public static function getTotalItems() {
+    global $db;
+
+    $query = "SELECT COUNT(ShirtID) AS total FROM Shirts";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    $statement->closeCursor();
+
+    if ($row && isset($row['total'])) {
+        return (int)$row['total'];
+    } else {
+        return 0;
+    }
+}
+
+public static function getTotalListPrice() {
+    global $db;
+
+    // SUM returns NULL if table is empty, so use IFNULL()
+    $query = "SELECT IFNULL(SUM(ShirtListPrice), 0) AS total FROM Shirts";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    $statement->closeCursor();
+
+    if ($row && isset($row['total'])) {
+        return (float)$row['total'];
+    } else {
+        return 0.0;
+    }
+}
+public static function getTotalWholesalePrice() {
+    global $db;
+
+    // SUM returns NULL when table is empty, so wrap with IFNULL()
+    $query = "SELECT IFNULL(SUM(ShirtWholesalePrice), 0) AS total FROM Shirts";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    $statement->closeCursor();
+
+    if ($row && isset($row['total'])) {
+        return (float)$row['total'];
+    } else {
+        return 0.0;
+    }
+}
+
 }
 ?>
