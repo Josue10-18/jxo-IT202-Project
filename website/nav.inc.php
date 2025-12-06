@@ -50,7 +50,7 @@ if (session_status() === PHP_SESSION_NONE) {
         </tr>
         <tr>
           <td><a href="index.php?content=logout">
-            <img src="images/logout-logo.png" alt="Logout Icon" width="20" height="20" />&nbsp;  
+            <img src="images/logout-logo.png" alt="Logout Icon" width="31" height="31" />&nbsp;  
           <strong>Logout</strong></a></td>
         </tr>
         <tr>
