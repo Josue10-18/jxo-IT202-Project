@@ -81,13 +81,13 @@ if ($nameLength < 10 || $nameLength > 100) {
 
 // ShirtDescription: Min 100, Max 255
 $descLength = strlen($desc);
-if ($descLength < 100 || $descLength > 255) {
-    $errorMessage .= "<p>Error: Shirt Description must be between 100 and 255 characters.</p>";
+if ($descLength < 20 || $descLength > 100) {
+    $errorMessage .= "<p>Error: Shirt Description must be between 20 and 100 characters.</p>";
 }
 // Required: Check for at least 2 full sentences
 $sentence_count = substr_count($desc, '.') + substr_count($desc, '!') + substr_count($desc, '?');
-if ($sentence_count < 2) {
-    $errorMessage .= "<p>Error: Shirt Description must contain at least 2 full sentences (ending with '.', '!', or '?').</p>";
+if ($sentence_count < 1) {
+    $errorMessage .= "<p>Error: Shirt Description must contain at least ONE full sentences (ending with '.', '!', or '?').</p>";
 }
 
 // Material: Additional column (assuming min 5, max 50)
