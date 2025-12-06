@@ -76,14 +76,14 @@ function viewType(id) {
 
 // Update Type
 function updateType(id) {
-    window.location.href = "changeshirttype.test.php?ShirtTypeID=" + id;
+    window.location.href = "updateshirttype.test.php?ShirtTypeID=" + id;
 }
 
 // Delete Type (with confirmation prompt)
 function deleteType(id) {
     var confirmDelete = confirm("Are you sure you want to delete this Shirt Type?");
     if (confirmDelete) {
-        window.location.href = "removeshirttype.test.php?ShirtTypeID=" + id;
+        window.location.href = "removeshirttype.inc.php?ShirtTypeID=" + id;
     }
 }
 </script>

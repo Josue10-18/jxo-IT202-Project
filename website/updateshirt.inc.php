@@ -44,8 +44,7 @@ if (!$shirt) {
 
 <h2>Update Shirt: <?php echo htmlspecialchars($shirt['ShirtName']); ?> (#<?php echo htmlspecialchars($shirt['ShirtID']); ?>)</h2>
 
-<form action="index.php" method="POST">
-    <input type="hidden" name="content" value="changeshirt">
+<form action="changeshirt.inc.php" method="POST">
     <table border="1">
         <tr>
             <th><label for="ShirtID">ShirtID:</label></th>

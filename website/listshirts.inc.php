@@ -83,12 +83,12 @@ $shirts = Shirt::getAll();
 <script>
 // View Item
 function viewItem(id) {
-    window.location.href = "displayshirt.php?ShirtID=" + id;
+    window.location.href = "displayshirt.inc.php?ShirtID=" + id;
 }
 
 // Update Item
 function updateItem(id) {
-    window.location.href = "changeshirt.inc.php?ShirtID=" + id;
+    window.location.href = "updateshirt.inc.php?ShirtID=" + id;
 }
 
 // Delete Item
@@ -99,6 +99,7 @@ function deleteItem(id) {
     }
 }
 </script>
+
 
 <?php if (empty($shirts)): ?>
     <p>No shirts found in the database.</p>

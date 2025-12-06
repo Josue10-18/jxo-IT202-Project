@@ -37,7 +37,7 @@ if (!$typeDetails) {
 ?>
 <h2>Update Shirt Type: <?php echo htmlspecialchars($typeDetails['ShirtTypeName']); ?></h2>
 
-<form id="updateTypeForm" method="post" action="changeshirttype.test.php">
+<form id="updateTypeForm" method="post" action="changeshirttype.inc.php">
 
     <input type="hidden" name="ShirtTypeID" value="<?php echo htmlspecialchars($typeDetails['ShirtTypeID']); ?>">
 

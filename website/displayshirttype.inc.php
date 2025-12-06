@@ -21,7 +21,11 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
 }
 
 // Get the ShirtTypeID from the search form in nav.inc.php
-$typeId = filter_input(INPUT_POST, 'ShirtTypeID', FILTER_VALIDATE_INT);
+$typeId = filter_input(INPUT_GET, 'ShirtTypeID', FILTER_VALIDATE_INT);
+
+if ($typeId === null) {
+    $typeId = filter_input(INPUT_POST, 'ShirtTypeID', FILTER_VALIDATE_INT);
+}
 
 // Validation
 if ($typeId === false || $typeId === null) {
