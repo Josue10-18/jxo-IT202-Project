@@ -8,30 +8,33 @@
 require('database.php');
 require('shirttype.php');
 
-// Accept ID from GET (because JS buttons use GET)
+// Get ID
 $id = filter_input(INPUT_GET, 'ShirtTypeID', FILTER_VALIDATE_INT);
 
 // Validate ID
 if ($id === false || $id === null) {
-    echo "<h2>Error: Missing or invalid Shirt Type ID.</h2>";
+    $message = "<h2>Error: Missing or invalid Shirt Type ID.</h2>";
+    $details = "<p><a href='index.php?content=listshirttypes'>Return to Shirt Type List</a></p>";
+    $boxClass = "error-box";
+
+    include("type_message_box.inc.php");
     exit();
 }
 
 // Attempt delete
 $removed = ShirtType::remove($id);
 
-// Build redirect URL
-$redirectURL = "index.php?content=listshirttypes";
+// Success or Failure
+if ($removed) {
+    $message = "<h2>Shirt Type #" . htmlspecialchars($id) . " successfully deleted.</h2>";
+    $details = "<p><a href='index.php?content=listshirttypes'>Back to Shirt Types</a></p>";
+    $boxClass = "success-box";
+} else {
+    $message = "<h2>Error: Could not delete Shirt Type #" . htmlspecialchars($id) . ".</h2>";
+    $details = "<p><a href='index.php?content=listshirttypes'>Return to Shirt Types</a></p>";
+    $boxClass = "error-box";
+}
 
-// Output result message briefly before redirect
-echo "<h2>" . 
-    ($removed 
-        ? "Shirt Type #$id was successfully deleted." 
-        : "Error: Failed to delete Shirt Type #$id.") 
-    . "</h2>";
-
-echo "<p>Redirecting back to Shirt Type List...</p>";
-
-header("refresh: 2; url=$redirectURL");
-exit();
+// Load the styled box template
+include("type_message_box.inc.php");
 ?>

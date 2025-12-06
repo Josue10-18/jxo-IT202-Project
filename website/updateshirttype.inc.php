@@ -8,7 +8,7 @@
 require_once('database.php');
 require_once('shirttype.php');
 
-// Start session for login
+// Start session
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -19,55 +19,66 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     exit();
 }
 
-// GET ShirtTypeID from the Update Type button
+// Get ShirtTypeID
 $typeId = filter_input(INPUT_GET, 'ShirtTypeID', FILTER_VALIDATE_INT);
-
 if ($typeId === false || $typeId === null) {
     echo "<h2>Error: Missing or invalid Shirt Type ID.</h2>";
     exit();
 }
 
-// Fetch the Shirt Type info
+// Fetch Shirt Type
 $typeDetails = ShirtType::getByID($typeId);
-
 if (!$typeDetails) {
     echo "<h2>Error: Shirt Type with ID #$typeId not found.</h2>";
     exit();
 }
 ?>
+
 <h2>Update Shirt Type: <?php echo htmlspecialchars($typeDetails['ShirtTypeName']); ?></h2>
 
 <form id="updateTypeForm" method="post" action="changeshirttype.inc.php">
 
-    <input type="hidden" name="ShirtTypeID" value="<?php echo htmlspecialchars($typeDetails['ShirtTypeID']); ?>">
+    <input type="hidden" name="ShirtTypeID" 
+           value="<?php echo htmlspecialchars($typeDetails['ShirtTypeID']); ?>">
 
-    <p>
-        <label for="ShirtTypeCode">Code:</label>
-        <input type="text" id="ShirtTypeCode" name="ShirtTypeCode"
-               value="<?php echo htmlspecialchars($typeDetails['ShirtTypeCode']); ?>" required>
-    </p>
+    <table>
+        <tr>
+            <th><label for="ShirtTypeCode">Code:</label></th>
+            <td>
+                <input type="text" id="ShirtTypeCode" name="ShirtTypeCode"
+                       value="<?php echo htmlspecialchars($typeDetails['ShirtTypeCode']); ?>" required>
+            </td>
+        </tr>
 
-    <p>
-        <label for="ShirtTypeName">Name:</label>
-        <input type="text" id="ShirtTypeName" name="ShirtTypeName"
-               value="<?php echo htmlspecialchars($typeDetails['ShirtTypeName']); ?>" required>
-    </p>
+        <tr>
+            <th><label for="ShirtTypeName">Name:</label></th>
+            <td>
+                <input type="text" id="ShirtTypeName" name="ShirtTypeName"
+                       value="<?php echo htmlspecialchars($typeDetails['ShirtTypeName']); ?>" required>
+            </td>
+        </tr>
 
-    <p>
-        <label for="AisleNumber">Aisle Number:</label>
-        <input type="number" id="AisleNumber" name="AisleNumber"
-               value="<?php echo htmlspecialchars($typeDetails['AisleNumber']); ?>" required>
-    </p>
+        <tr>
+            <th><label for="AisleNumber">Aisle Number:</label></th>
+            <td>
+                <input type="number" id="AisleNumber" name="AisleNumber"
+                       value="<?php echo htmlspecialchars($typeDetails['AisleNumber']); ?>" required min="1" max="99">
+            </td>
+        </tr>
 
-    <button type="submit">Update</button>
-    <button type="button" onclick="window.history.back();">Cancel</button>
+        <tr>
+            <td colspan="2" style="text-align:center;">
+                <button type="submit">Update Shirt Type</button>
+                <button type="button" onclick="window.history.back();">Cancel</button>
+            </td>
+        </tr>
+    </table>
 
 </form>
 
 <script>
-// Phase 5 JavaScript Validation (Unit 11 style) UCID:jxo, IT202-001, Internet Applications 12/3/2025
+// Phase 5 JavaScript Validation
 
-// Focus immediately on first field
 document.getElementById("ShirtTypeCode").focus();
 
 document.getElementById("updateTypeForm").onsubmit = function(event) {

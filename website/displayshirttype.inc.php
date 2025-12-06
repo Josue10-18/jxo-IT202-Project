@@ -20,43 +20,55 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     exit();
 }
 
-// Get the ShirtTypeID from the search form in nav.inc.php
+// Get the ShirtTypeID
 $typeId = filter_input(INPUT_GET, 'ShirtTypeID', FILTER_VALIDATE_INT);
-
 if ($typeId === null) {
     $typeId = filter_input(INPUT_POST, 'ShirtTypeID', FILTER_VALIDATE_INT);
 }
 
-// Validation
 if ($typeId === false || $typeId === null) {
-    echo "<h2>Error: Missing or invalid Shirt Type ID (non-numeric).</h2>";
+    echo "<h2>Error: Missing or invalid Shirt Type ID.</h2>";
     exit();
 }
 
-// Fetch the specific Shirt Type details
-$typeDetails = ShirtType::getByID($typeId); // Assuming you have getByID in shirttype.php
-
+// Fetch Shirt Type
+$typeDetails = ShirtType::getByID($typeId);
 if (!$typeDetails) {
-    echo "<h2>Error: Shirt Type with ID #$typeId was not found.</h2>";
+    echo "<h2>Error: Shirt Type with ID #$typeId not found.</h2>";
     exit();
 }
 
-// Fetch all associated Shirts
-$shirts = Shirt::getByTypeID($typeId); // Uses the method added to shirt.php
-
+// Fetch associated shirts
+$shirts = Shirt::getByTypeID($typeId);
 ?>
-<h2>Shirt Type Details: <?php echo htmlspecialchars($typeDetails['ShirtTypeName']); ?> (#<?php echo htmlspecialchars($typeDetails['ShirtTypeID']); ?>)</h2>
 
-<p>
-    <strong>Code:</strong> <?php echo htmlspecialchars($typeDetails['ShirtTypeCode']); ?> | 
-    <strong>Aisle:</strong> <?php echo htmlspecialchars($typeDetails['AisleNumber']); ?>
-</p>
+<h2>View Shirt Type: <?php echo htmlspecialchars($typeDetails['ShirtTypeName']); ?> (#<?php echo htmlspecialchars($typeId); ?>)</h2>
 
-<h3>Associated Shirts:</h3>
+<table>
+    <tr>
+        <th>ShirtTypeID</th>
+        <td><?php echo htmlspecialchars($typeDetails['ShirtTypeID']); ?></td>
+    </tr>
+    <tr>
+        <th>Code</th>
+        <td><?php echo htmlspecialchars($typeDetails['ShirtTypeCode']); ?></td>
+    </tr>
+    <tr>
+        <th>Name</th>
+        <td><?php echo htmlspecialchars($typeDetails['ShirtTypeName']); ?></td>
+    </tr>
+    <tr>
+        <th>Aisle Number</th>
+        <td><?php echo htmlspecialchars($typeDetails['AisleNumber']); ?></td>
+    </tr>
+</table>
+
+<h3>Associated Shirts</h3>
+
 <?php if (empty($shirts)): ?>
     <p>No shirts found for this type.</p>
 <?php else: ?>
-    <table border="1">
+    <table>
         <thead>
             <tr>
                 <th>ID</th>
@@ -67,13 +79,15 @@ $shirts = Shirt::getByTypeID($typeId); // Uses the method added to shirt.php
         </thead>
         <tbody>
             <?php foreach ($shirts as $shirt): ?>
-            <tr>
-                <td><?php echo htmlspecialchars($shirt['ShirtID']); ?></td>
-                <td><?php echo htmlspecialchars($shirt['ShirtCode']); ?></td>
-                <td><?php echo htmlspecialchars($shirt['ShirtName']); ?></td>
-                <td>$<?php echo number_format($shirt['ShirtListPrice'], 2); ?></td>
-            </tr>
+                <tr>
+                    <td><?php echo htmlspecialchars($shirt['ShirtID']); ?></td>
+                    <td><?php echo htmlspecialchars($shirt['ShirtCode']); ?></td>
+                    <td><?php echo htmlspecialchars($shirt['ShirtName']); ?></td>
+                    <td>$<?php echo number_format($shirt['ShirtListPrice'], 2); ?></td>
+                </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 <?php endif; ?>
+
+<p><a href="index.php?content=listshirttypes">Back to Shirt Types</a></p>
