@@ -18,7 +18,7 @@ if (session_status() === PHP_SESSION_NONE) {
          <td><h3>Welcome, <?php echo $_SESSION['firstName']; ?></h3></td>
         </tr>
         <tr>
-          <td><img src="homelogo.png" alt="Home Icon" width="12" height="12" />&nbsp;
+          <td><img src="images/homelogo.png" alt="Home Icon" width="12" height="12" />&nbsp;
             <a href="index.php"><strong>Home</strong></a></td>
         </tr>
         <tr>
@@ -50,7 +50,7 @@ if (session_status() === PHP_SESSION_NONE) {
         </tr>
         <tr>
           <td><a href="index.php?content=logout">
-            <img src="logout-logo.png" alt="Logout Icon" width="12" height="12" />&nbsp;  
+            <img src="images/logout-logo.png" alt="Logout Icon" width="12" height="12" />&nbsp;  
           <strong>Logout</strong></a></td>
         </tr>
         <tr>
