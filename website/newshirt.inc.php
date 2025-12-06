@@ -26,7 +26,7 @@ $shirtTypes = ShirtType::getAll(); // Assuming this is defined and working in sh
             <td><input type="text" id="ShirtName" name="ShirtName" maxlength="255" minlength="3" required></td>
         </tr>
         <tr>
-            <th><label for="ShirtDescription">ShirtDescription (Min 2 sentences):</label></th>
+            <th><label for="ShirtDescription">ShirtDescription (Min ONE sentences):</label></th>
             <td><textarea id="ShirtDescription" name="ShirtDescription" rows="3" required></textarea></td>
         </tr>
         <tr>
