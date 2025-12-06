@@ -12,50 +12,72 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     exit();
 }
 
-// Input data
+// Handle Cancel Button EXACTLY like changeshirt.inc.php
+$action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+if ($action === 'Cancel') {
+    echo "<h2>Update Canceled</h2>";
+    echo "<p>The update operation for the shirt type has been canceled.</p>";
+    exit();
+}
+
+// Input Filtering
 $id     = filter_input(INPUT_POST, 'ShirtTypeID', FILTER_VALIDATE_INT);
 $code   = filter_input(INPUT_POST, 'ShirtTypeCode', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $name   = filter_input(INPUT_POST, 'ShirtTypeName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $aisle  = filter_input(INPUT_POST, 'AisleNumber', FILTER_VALIDATE_INT);
 
+// Validation
 $errorMessage = "";
 
-// Validate
-if ($id === false || $id === null) {
+// ID validation
+if ($id === false || $id === null || $id <= 0) {
     $errorMessage .= "<p>Error: Shirt Type ID is missing or invalid.</p>";
 }
 
-if ($code === null || strlen(trim($code)) < 1) {
-    $errorMessage .= "<p>Error: Code cannot be empty.</p>";
+// Code validation (3–50 chars)
+if ($code === null || strlen(trim($code)) < 3 || strlen(trim($code)) > 50) {
+    $errorMessage .= "<p>Error: Shirt Type Code must be between 3 and 50 characters.</p>";
 }
 
-if ($name === null || strlen(trim($name)) < 1) {
-    $errorMessage .= "<p>Error: Name cannot be empty.</p>";
+// Name validation (3–100 chars)
+if ($name === null || strlen(trim($name)) < 3 || strlen(trim($name)) > 100) {
+    $errorMessage .= "<p>Error: Shirt Type Name must be between 3 and 100 characters.</p>";
 }
 
-if ($aisle === false || $aisle <= 0) {
-    $errorMessage .= "<p>Error: Aisle Number must be a positive number.</p>";
+// Aisle validation 1–99
+if ($aisle === false || $aisle < 1 || $aisle > 99) {
+    $errorMessage .= "<p>Error: Aisle Number must be between 1 and 99.</p>";
 }
 
-// If errors → show them
+// If errors → match changeshirt.inc.php STYLE
 if ($errorMessage !== "") {
     echo "<h2>Error Updating Shirt Type</h2>";
     echo $errorMessage;
-    echo "<p><a href='index.php?content=updateshirttype&ShirtTypeID=$id'>Try Again</a></p>";
     exit();
 }
 
-// Update
+// Perform update
 $updatedType = new ShirtType($id, $code, $name, $aisle);
 
 if ($updatedType->update()) {
-    echo "<h2>Success! Shirt Type #$id updated.</h2>";
-    echo "<p>New Code: " . htmlspecialchars($code) . "</p>";
-    echo "<p>New Name: " . htmlspecialchars($name) . "</p>";
-    echo "<p>New Aisle: " . htmlspecialchars($aisle) . "</p>";
-    echo "<p><a href='index.php?content=listshirttypes'>Back to Shirt Types</a></p>";
+
+    $successMessage = "<h2>Success! Shirt Type #"
+        . htmlspecialchars($id)
+        . " successfully updated.</h2>";
+
+    $details = "<p>New Code: " . htmlspecialchars($code)
+        . " | New Name: " . htmlspecialchars($name)
+        . " | New Aisle: " . htmlspecialchars($aisle) . "</p>";
+
 } else {
-    echo "<h2>Error: Failed to update Shirt Type #$id.</h2>";
-    echo "<p><a href='index.php?content=updateshirttype&ShirtTypeID=$id'>Try Again</a></p>";
+    $successMessage = "<h2>Error: Failed to update Shirt Type #" . htmlspecialchars($id) . ".</h2>";
+    $details = "";
 }
 ?>
+
+<h3>
+<?php echo $successMessage; ?>
+<?php echo $details; ?>
+<p><a href="index.php?content=listshirttypes">Back to Shirt Type List</a></p>
+</h3>

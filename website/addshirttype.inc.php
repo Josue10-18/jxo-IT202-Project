@@ -15,7 +15,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // 1. Login Check
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
-    echo "<h2>Access Denied! You must be logged in to add a new Shirt Type.</h2>";
+    echo "<h2>Access Denied! You must be logged in to add a Shirt Type.</h2>";
     exit();
 }
 
@@ -25,11 +25,11 @@ $code  = filter_input(INPUT_POST, 'ShirtTypeCode', FILTER_SANITIZE_FULL_SPECIAL_
 $name  = filter_input(INPUT_POST, 'ShirtTypeName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $aisle = filter_input(INPUT_POST, 'AisleNumber', FILTER_VALIDATE_INT);
 
-// 3. Server-Side Validation
+// 3. Validation
 $errorMessage = "";
 
-if ($id === false || $id === null || $id <= 0 || $id > 99999) {
-    $errorMessage .= "<p>Error: ShirtTypeID must be a valid positive number.</p>";
+if ($id === false || $id === null || $id < 100 || $id > 99999) {
+    $errorMessage .= "<p>Error: ShirtTypeID must be between 100 and 99999.</p>";
 }
 
 if (strlen($code) < 3 || strlen($code) > 50) {
@@ -41,26 +41,38 @@ if (strlen($name) < 3 || strlen($name) > 100) {
 }
 
 if ($aisle === false || $aisle === null || $aisle < 1 || $aisle > 99) {
-    $errorMessage .= "<p>Error: AisleNumber must be 1–99.</p>";
+    $errorMessage .= "<p>Error: AisleNumber must be between 1 and 99.</p>";
 }
 
-// 4. Show errors EXACTLY like addshirt.inc.php
+// 4. Show Styled Error Box (matches Shirt errors)
 if ($errorMessage != "") {
-    echo "<h2>Error Adding Shirt Type</h2>";
+    echo "<div style='border:2px solid #E74C3C; background:#FDEDEC; padding:20px; max-width:600px; margin:auto;'>";
+    echo "<h2 style='color:#E74C3C;'>Error Adding Shirt Type</h2>";
     echo $errorMessage;
-    echo "<p><a href='index.php?content=newshirttype'>Go Back</a></p>";
+    echo "<p><a href='index.php?content=newshirttype' style='color:#E74C3C;'>Go Back</a></p>";
+    echo "</div>";
     exit();
 }
 
-// 5. If no errors → Save
+// 5. Save Shirt Type
 $newType = new ShirtType($id, $code, $name, $aisle);
 
 if ($newType->save()) {
-    echo "<h2>Success! Shirt Type #".htmlspecialchars($id)." added.</h2>";
-    echo "<p>Code: ".htmlspecialchars($code)." | Name: ".htmlspecialchars($name)." | Aisle: ".htmlspecialchars($aisle)."</p>";
-    echo "<p><a href='index.php?content=listshirttypes'>Return to List</a></p>";
+
+    echo "<div style='border:2px solid #2ECC71; background:#E9F7EF; padding:20px; max-width:600px; margin:auto;'>";
+    echo "<h2 style='color:#2ECC71;'>Success! Shirt Type #".htmlspecialchars($id)." Added.</h2>";
+    echo "<p>Code: ".htmlspecialchars($code)."<br>
+          Name: ".htmlspecialchars($name)."<br>
+          Aisle: ".htmlspecialchars($aisle)."</p>";
+    echo "<p><a href='index.php?content=listshirttypes' style='color:#2ECC71;'>Back to Shirt Types</a></p>";
+    echo "</div>";
+
 } else {
-    echo "<h2>Error: Could not add Shirt Type #".htmlspecialchars($id).". It may already exist.</h2>";
-    echo "<p><a href='index.php?content=newshirttype'>Try Again</a></p>";
+
+    echo "<div style='border:2px solid #E74C3C; background:#FDEDEC; padding:20px; max-width:600px; margin:auto;'>";
+    echo "<h2 style='color:#E74C3C;'>Error: Shirt Type #".htmlspecialchars($id)." could not be added.</h2>";
+    echo "<p><a href='index.php?content=newshirttype' style='color:#E74C3C;'>Try Again</a></p>";
+    echo "</div>";
+
 }
 ?>

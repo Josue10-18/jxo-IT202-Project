@@ -12,20 +12,32 @@
     <table border="1">
         <tr>
             <th><label for="ShirtTypeID">ShirtTypeID:</label></th>
-            <td><input type="number" id="ShirtTypeID" name="ShirtTypeID" required min="100" max="99999"></td>
+            <td>
+                <input type="number" id="ShirtTypeID" name="ShirtTypeID">
+            </td>
         </tr>
+
         <tr>
             <th><label for="ShirtTypeCode">ShirtTypeCode:</label></th>
-            <td><input type="text" id="ShirtTypeCode" name="ShirtTypeCode" maxlength="255" minlength="3" required></td>
+            <td>
+                <input type="text" id="ShirtTypeCode" name="ShirtTypeCode">
+            </td>
         </tr>
+
         <tr>
             <th><label for="ShirtTypeName">ShirtTypeName:</label></th>
-            <td><input type="text" id="ShirtTypeName" name="ShirtTypeName" maxlength="255" minlength="3" required></td>
+            <td>
+                <input type="text" id="ShirtTypeName" name="ShirtTypeName">
+            </td>
         </tr>
+
         <tr>
             <th><label for="AisleNumber">AisleNumber:</label></th>
-            <td><input type="number" id="AisleNumber" name="AisleNumber" required min="1" max="99"></td>
+            <td>
+                <input type="number" id="AisleNumber" name="AisleNumber">
+            </td>
         </tr>
+
         <tr>
             <td colspan="2" style="text-align: center;">
                 <input type="submit" value="Add New Shirt Type">
@@ -33,6 +45,3 @@
         </tr>
     </table>
 </form>
-
-<?php
-?>

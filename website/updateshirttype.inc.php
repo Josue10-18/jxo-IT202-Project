@@ -34,44 +34,53 @@ if (!$typeDetails) {
 }
 ?>
 
-<h2>Update Shirt Type: <?php echo htmlspecialchars($typeDetails['ShirtTypeName']); ?></h2>
+<h2>Update Shirt Type: <?php echo htmlspecialchars($typeDetails['ShirtTypeName']); ?> (#<?php echo htmlspecialchars($typeId); ?>)</h2>
 
-<form id="updateTypeForm" method="post" action="changeshirttype.inc.php">
+<form action="changeshirttype.inc.php" method="POST">
+    <table border="1">
 
-    <input type="hidden" name="ShirtTypeID" 
-           value="<?php echo htmlspecialchars($typeDetails['ShirtTypeID']); ?>">
-
-    <table>
         <tr>
-            <th><label for="ShirtTypeCode">Code:</label></th>
+            <th><label for="ShirtTypeID">ShirtTypeID:</label></th>
+            <td>
+                <?php echo htmlspecialchars($typeDetails['ShirtTypeID']); ?>
+                <input type="hidden" name="ShirtTypeID"
+                       value="<?php echo htmlspecialchars($typeDetails['ShirtTypeID']); ?>">
+            </td>
+        </tr>
+
+        <tr>
+            <th><label for="ShirtTypeCode">ShirtTypeCode:</label></th>
             <td>
                 <input type="text" id="ShirtTypeCode" name="ShirtTypeCode"
-                       value="<?php echo htmlspecialchars($typeDetails['ShirtTypeCode']); ?>" required>
+                       minlength="3" maxlength="50" required
+                       value="<?php echo htmlspecialchars($typeDetails['ShirtTypeCode']); ?>">
             </td>
         </tr>
 
         <tr>
-            <th><label for="ShirtTypeName">Name:</label></th>
+            <th><label for="ShirtTypeName">ShirtTypeName:</label></th>
             <td>
                 <input type="text" id="ShirtTypeName" name="ShirtTypeName"
-                       value="<?php echo htmlspecialchars($typeDetails['ShirtTypeName']); ?>" required>
+                       minlength="3" maxlength="100" required
+                       value="<?php echo htmlspecialchars($typeDetails['ShirtTypeName']); ?>">
             </td>
         </tr>
 
         <tr>
-            <th><label for="AisleNumber">Aisle Number:</label></th>
+            <th><label for="AisleNumber">AisleNumber:</label></th>
             <td>
                 <input type="number" id="AisleNumber" name="AisleNumber"
-                       value="<?php echo htmlspecialchars($typeDetails['AisleNumber']); ?>" required min="1" max="99">
+                       min="1" max="99" required
+                       value="<?php echo htmlspecialchars($typeDetails['AisleNumber']); ?>">
             </td>
         </tr>
 
         <tr>
             <td colspan="2" style="text-align:center;">
-                <button type="submit">Update Shirt Type</button>
-                <button type="button" onclick="window.history.back();">Cancel</button>
+                <input type="submit" name="action" value="Cancel" formnovalidate>
+                <input type="submit" name="action" value="Update Item">
             </td>
         </tr>
-    </table>
 
+    </table>
 </form>
