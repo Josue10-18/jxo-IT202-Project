@@ -8,7 +8,7 @@
 <footer>
   <p>&copy; Shirt Shop Inventory Helper - Making Inventory Management Easier</p>
   <p>
-    Josue Ortiz, IT-202 Section 001, Internet Application, Phase 4 Assignment: HTML Website Layout, jxo@njit.edu
+    Josue Ortiz, IT-202 Section 001, Internet Application, Phase 0-5 Assignment: HTML Website Layout, jxo@njit.edu
   </p>
   <p>Application Version: v3.0</p>
   <p>
