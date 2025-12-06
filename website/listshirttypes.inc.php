@@ -76,7 +76,7 @@ function viewType(id) {
 
 // Update Type
 function updateType(id) {
-    window.location.href = "updateshirttype.test.php?ShirtTypeID=" + id;
+    window.location.href = "updateshirttype.inc.php?ShirtTypeID=" + id;
 }
 
 // Delete Type (with confirmation prompt)
