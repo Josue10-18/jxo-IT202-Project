@@ -58,7 +58,7 @@ if (isset($_SESSION['login']) && $_SESSION['login'] === true) {
            ?>
        </main>
  
-       <!-- PHASE 5 REAL-TIME INVENTORY PANEL -->
+       <!-- PHASE 5 REAL-TIME INVENTORY PANEL UCID:jxo, IT202-001, Internet Applications 12/3/2025-->
        <?php include("aside.inc.php"); ?>
        <script>
            getRealTime();                // load immediately

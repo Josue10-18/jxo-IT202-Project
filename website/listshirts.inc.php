@@ -69,7 +69,7 @@ $shirts = Shirt::getAll();
             <td><?php echo number_format($shirt['ShirtWholesalePrice'], 2); ?></td>
             <td><?php echo number_format($shirt['ShirtListPrice'], 2); ?></td>
 
-            <!-- PHASE 5: JavaScript Unit 11 Buttons -->
+            <!-- PHASE 5: JavaScript Unit 11 Buttons UCID:jxo, IT202-001, Internet Applications 12/3/2025-->
             <td>
                 <button type="button" onclick="viewItem(<?php echo $shirt['ShirtID']; ?>)">View</button>
                 <button type="button" onclick="updateItem(<?php echo $shirt['ShirtID']; ?>)">Update</button>

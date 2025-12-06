@@ -128,7 +128,7 @@ public static function getByID($id) {
     return $result;
 }
 /* ==========================
-   PHASE 5 – UNIT 12 METHODS
+   PHASE 5 – UNIT 12 METHODS UCID:jxo, IT202-001, Internet Applications 12/3/2025
    ========================== */
 public static function getTotalItems() {
     global $db;

@@ -65,7 +65,7 @@ if (!$typeDetails) {
 </form>
 
 <script>
-// Phase 5 JavaScript Validation (Unit 11 style)
+// Phase 5 JavaScript Validation (Unit 11 style) UCID:jxo, IT202-001, Internet Applications 12/3/2025
 
 // Focus immediately on first field
 document.getElementById("ShirtTypeCode").focus();

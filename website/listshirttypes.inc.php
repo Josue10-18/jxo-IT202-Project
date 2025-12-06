@@ -57,7 +57,7 @@ $shirtTypes = ShirtType::getAll(); // Retrieve data
             <td><?php echo htmlspecialchars($type['ShirtTypeName']); ?></td>
             <td><?php echo htmlspecialchars($type['AisleNumber']); ?></td>
 
-            <!-- PHASE 5: JavaScript Action Buttons -->
+            <!-- PHASE 5: JavaScript Action Buttons UCID:jxo, IT202-001, Internet Applications 12/3/2025-->
             <td>
                 <button type="button" onclick="viewType(<?php echo $type['ShirtTypeID']; ?>)">View</button>
                 <button type="button" onclick="updateType(<?php echo $type['ShirtTypeID']; ?>)">Update</button>

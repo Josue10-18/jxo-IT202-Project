@@ -131,7 +131,7 @@ class ShirtType {
         }
     }
 
-/* PHASE 5 – UNIT 12 FUNCTION */
+/* PHASE 5 – UNIT 12 FUNCTION UCID:jxo, IT202-001, Internet Applications 12/3/2025 */
 public static function getTotalCategories() {
     /** @var PDO $db */
     global $db;
