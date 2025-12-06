@@ -1,5 +1,11 @@
 <?php
 ob_start();
+// Name: Josue Ortiz
+// Date: 10/25/2025
+// Course/Section: IT-202 Section 001
+// Assignment: Phase 5 Assignment: Real-time Inventory Data
+// Email: jxo@njit.edu
+
 
 // Include database and class files
 require_once("database.php");

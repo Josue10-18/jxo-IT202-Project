@@ -1,4 +1,9 @@
 <?php
+// Name: Josue Ortiz
+// Date: 11/04/2025
+// Course/Section: IT-202 Section 001
+// Assignment: Phase 4 Assignment: Update Shirt Type Processing
+// Email: jxo@njit.edu
 require('database.php');
 require('shirttype.php');
 

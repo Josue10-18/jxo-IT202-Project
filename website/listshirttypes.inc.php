@@ -2,7 +2,7 @@
 // Name: Josue Ortiz
 // Date: 11/04/2025
 // Course/Section: IT-202 Section 001
-// Assignment: Phase 2 CRUD Categories and Items
+// Assignment: Phase 3 Assignment: List Shirt Types
 // Email: jxo@njit.edu
 
 require('database.php'); 

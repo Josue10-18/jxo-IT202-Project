@@ -2,7 +2,7 @@
 // Name: Josue Ortiz
 // Date: 10/25/2025
 // Course/Section: IT-202 Section 001
-// Assignment: Phase 3 Assignment: HTML Website Layout
+// Assignment: Phase 5 Assignment: Navigation Menu
 // Email: jxo@njit.edu
 
 // Ensure the session is started before using session variables

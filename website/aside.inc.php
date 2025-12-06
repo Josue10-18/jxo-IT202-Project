@@ -1,4 +1,11 @@
+<!-- // Name: Josue Ortiz
+// Date: 11/04/2025
+// Course/Section: IT-202 Section 001
+// Assignment: Phase 5 – Real-Time Inventory Panel
+// Email: jxo@njit.edu -->
+
 <style>
+    
     aside.realtime-panel {
         font-family: Arial, Helvetica, sans-serif;
         font-size: 90%;

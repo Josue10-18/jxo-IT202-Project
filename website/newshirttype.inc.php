@@ -2,7 +2,7 @@
 // Name: Josue Ortiz
 // Date: 11/04/2025
 // Course/Section: IT-202 Section 001
-// Assignment: Phase 3 Assignment: HTML Website Layout
+// Assignment: Phase 5 Assignment: Add New Shirt Type Form
 // Email: jxo@njit.edu
 ?>
 <h2>Add New Shirt Type</h2>

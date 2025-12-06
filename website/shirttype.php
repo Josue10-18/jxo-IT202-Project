@@ -2,7 +2,7 @@
 // Name: [Josue Ortiz]
 // Date: [10/18/2024]
 // Course/Section: IT-202 Section 001
-// Assignment: Phase 2 CRUD Categories and Items
+// Assignment: Phase 2 Assignment: ShirtType Class
 // Email: jxo@njit.edu
 
 /**

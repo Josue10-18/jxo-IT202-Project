@@ -1,5 +1,9 @@
 function getRealTime() {
-
+// Name: Josue Ortiz
+// Date: 10/25/2025
+// Course/Section: IT-202 Section 001
+// Assignment: Phase 5 Assignment: HTML Website Layout
+// Email: jxo@njit.edu
     console.log("Fetching real-time inventory...");
 
     // DOM elements

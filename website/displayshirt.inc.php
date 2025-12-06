@@ -1,4 +1,9 @@
 <?php
+// Name: Josue Ortiz
+// Date: 11/04/2025
+// Course/Section: IT-202 Section 001
+// Assignment: Phase 4 Assignment – Display Shirt Details
+// Email: jxo@njit.edu
 require_once("database.php");
 require_once("shirt.php");
 
