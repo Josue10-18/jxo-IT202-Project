@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: sql1.njit.edu
--- Generation Time: Nov 22, 2025 at 04:37 AM
+-- Generation Time: Dec 06, 2025 at 08:07 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.4.8
 
@@ -26,7 +26,6 @@ SET time_zone = "+00:00";
 -- Table structure for table `Shirts`
 --
 
-DROP TABLE IF EXISTS `Shirts`;
 CREATE TABLE IF NOT EXISTS `Shirts` (
   `ShirtID` int(11) NOT NULL,
   `ShirtCode` varchar(10) NOT NULL,
@@ -42,18 +41,11 @@ CREATE TABLE IF NOT EXISTS `Shirts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Truncate table before insert `Shirts`
---
-
-TRUNCATE TABLE `Shirts`;
---
 -- Dumping data for table `Shirts`
 --
 
 INSERT INTO `Shirts` (`ShirtID`, `ShirtCode`, `ShirtName`, `ShirtDescription`, `Material`, `Fit`, `ShirtTypeID`, `ShirtWholesalePrice`, `ShirtListPrice`, `DateTimeCreated`, `DateTimeUpdated`) VALUES
-(1000, 'GOD', 'JESUS IS THE TRUTH', 'A classic black t-shirt a cross design. This shirt is comfortable for all-day wear and highly durable.', 'Cotton Blend', 'L', 100, 12.50, 24.99, '2025-10-24 17:03:04', '2025-10-24 17:03:04'),
-(2000, 'CROWN', 'BLUE LONG SLEEVE', 'A heavy-weight, deep navy blue long sleeve shirt. Perfect for layering during cooler months, its reinforced stitching ensures longevity.', 'Heavy Cotton', 'XL', 300, 15.00, 29.99, '2025-10-24 17:03:08', '2025-10-24 17:03:08'),
-(3000, 'CAR', 'GRAPHIC LONG SLEVE', 'A graphic design long sleeve. The knit fabric provides style and comfort.', 'Polyester Blend', 'Slim', 300, 12.00, 28.99, '2025-10-24 17:03:09', '2025-10-24 17:03:09');
+(200, '250', 'Soccer Tshirt', 'Soccer Shirt for kids.', 'cotton', 'small', 600, 20.99, 25.99, '2025-12-06 05:54:36', '2025-12-06 05:54:36');
 
 --
 -- Indexes for dumped tables
